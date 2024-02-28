@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Discovery" />
+        <module name="Client_Account_MS" />
+        <module name="Transaction_MS" />
+        <module name="Gateway" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Client_Account_MS" target="17" />
+      <module name="Config" target="17" />
+      <module name="Discovery" target="17" />
+      <module name="Gateway" target="17" />
+      <module name="Transaction_MS" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Client_Account_MS" options="-parameters" />
+      <module name="Config" options="-parameters" />
+      <module name="Discovery" options="-parameters" />
+      <module name="Gateway" options="-parameters" />
+      <module name="Transaction_MS" options="-parameters" />
+    </option>
+  </component>
+</project>

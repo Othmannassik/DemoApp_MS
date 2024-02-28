@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Client_Account_MS/Client_Account_MS.iml" filepath="$PROJECT_DIR$/Client_Account_MS/Client_Account_MS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Config/Config.iml" filepath="$PROJECT_DIR$/Config/Config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DemoAPP_MS.iml" filepath="$PROJECT_DIR$/DemoAPP_MS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Discovery/Discovery.iml" filepath="$PROJECT_DIR$/Discovery/Discovery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Gateway/Gateway.iml" filepath="$PROJECT_DIR$/Gateway/Gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Transaction_MS/Transaction_MS.iml" filepath="$PROJECT_DIR$/Transaction_MS/Transaction_MS.iml" />
+    </modules>
+  </component>
+</project>

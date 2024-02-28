@@ -1,0 +1,96 @@
+services:
+  discovery-service:
+    build: ./Discovery
+    container_name: discovery-service
+    ports:
+      - "8761:8761"
+
+  gateway-service:
+    build: ./Gateway
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-service
+    environment:
+      - DISCOVERY_URL=http://discovery-service:8761/eureka
+
+  account_postgres_db:
+    image: postgres
+    restart: always
+    container_name: account_postgres_db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=accountDB
+
+  rabbitmq:
+    image: 'rabbitmq:3.13.0-management'
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASSWORD=guest
+
+  client-account-ms:
+    build: ./Client_Account_MS
+    container_name: client-account-ms
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-service
+      - account_postgres_db
+      - rabbitmq
+    environment:
+      - DATABASE_URL=jdbc:postgresql://account_postgres_db:5432/accountDB
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=password
+      - DISCOVERY_URL=http://discovery-service:8761/eureka
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://rabbitmq:15672" ]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  transaction_postgres_db:
+    image: postgres
+    restart: always
+    container_name: transaction_postgres_db
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=transactionDB
+
+  transaction-ms:
+    build: ./Transaction_MS
+    container_name: transaction-ms
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery-service
+      - transaction_postgres_db
+    environment:
+      - DATABASE_URL=jdbc:postgresql://transaction_postgres_db:5432/transactionDB
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=password
+      - DISCOVERY_URL=http://discovery-service:8761/eureka
+
+#  pgadmin:
+#    image: 'dpage/pgadmin4:latest'
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+#      PGADMIN_DEFAULT_PASSWORD: admin
+#      PGADMIN_LISTEN_PORT: 5050
+#    ports:
+#      - '5050:5050'
