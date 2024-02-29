@@ -39,6 +39,7 @@ services:
   client-account-ms:
     build: ./Client_Account_MS
     container_name: client-account-ms
+    restart: on-failure
     ports:
       - "8081:8081"
     depends_on:
